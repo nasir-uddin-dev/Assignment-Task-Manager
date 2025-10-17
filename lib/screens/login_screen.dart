@@ -1,3 +1,4 @@
+import 'package:assignment_task_manager/screens/sign_up_screen.dart';
 import 'package:assignment_task_manager/widgets/background_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 Center(
+                  child: FilledButton(
+                    onPressed: () {},
+                    child: Icon(Icons.arrow_forward_ios, size: 24,),
+                  ),
+                ),
+                Center(
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
@@ -61,22 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                Center(
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Colors.deepPurpleAccent,
-                      fixedSize: Size.fromWidth(double.maxFinite),
-                    ),
-                    onPressed: () {},
-                    child: Text("Login", style: TextStyle(fontSize: 24)),
-                  ),
-                ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Have an account?'),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: _onTapSignUpButton,
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.black),
@@ -90,5 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _onTapSignUpButton(){
+    Navigator.push(context, MaterialPageRoute(builder: (_)=> SignUpScreen()));
   }
 }
