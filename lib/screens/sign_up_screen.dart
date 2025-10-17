@@ -138,7 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (response.isSuccess) {
       _clearTextFields();
-    } else {}
+    }
   }
 
   void _clearTextFields() {
