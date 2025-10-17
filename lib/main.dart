@@ -19,11 +19,20 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.circular(10),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
+
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            backgroundColor: Colors.deepPurpleAccent,
+            fixedSize: Size.fromWidth(double.maxFinite),
+          ),
+        )
       ),
 
       home: SplashScreen(),

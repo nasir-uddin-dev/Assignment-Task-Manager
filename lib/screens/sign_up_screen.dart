@@ -23,79 +23,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 80),
-                Text(
-                  'Join With Us',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _emailTEController,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    hintText: 'Enter a email',
-                    labelText: 'Email',
+            child: Form(
+              key: _formkey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 80),
+                  Text(
+                    'Join With Us',
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _firstNameTEController,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    hintText: 'Enter a first name',
-                    labelText: 'First Name',
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _lastNameTEController,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    hintText: 'Enter a last name',
-                    labelText: 'Last Name',
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _mobileTEController,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    hintText: 'Enter a phone number',
-                    labelText: 'Phone',
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _passwordTEController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter a password',
-                    labelText: 'Password',
-                  ),
-                ),
-                SizedBox(height: 30),
-                FilledButton(
-                  onPressed: () {},
-                  child: Icon(Icons.arrow_forward_ios_outlined, size: 24),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Have an account?'),
-                    TextButton(
-                      onPressed: _onTapSignInButton,
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(color: Colors.black),
-                      ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _emailTEController,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      hintText: 'Enter a email',
+                      labelText: 'Email',
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _firstNameTEController,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      hintText: 'Enter a first name',
+                      labelText: 'First Name',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _lastNameTEController,
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                      hintText: 'Enter a last name',
+                      labelText: 'Last Name',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _mobileTEController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      hintText: 'Enter a phone number',
+                      labelText: 'Phone',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _passwordTEController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter a password',
+                      labelText: 'Password',
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  FilledButton(
+                    onPressed: () {},
+                    child: Icon(Icons.arrow_forward_ios_outlined, size: 24),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Have an account?'),
+                      TextButton(
+                        onPressed: _onTapSignInButton,
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
