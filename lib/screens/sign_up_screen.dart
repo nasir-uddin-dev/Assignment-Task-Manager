@@ -1,3 +1,5 @@
+import 'package:assignment_task_manager/services/api_caller.dart';
+import 'package:assignment_task_manager/utils/urls.dart';
 import 'package:assignment_task_manager/widgets/background_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _lastNameTEController = TextEditingController();
   final _mobileTEController = TextEditingController();
   final _passwordTEController = TextEditingController();
+
+  bool _signUpInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _onTapSignInButton(){
+  void _onTapSignInButton() {
     Navigator.pop(context);
+  }
+
+  Future<void> _signUp() async {
+    _signUpInProgress = true;
+    setState(() {});
+
+    ///Make Api Data
+    Map<String, dynamic> requestBody = {
+      "email": _emailTEController.text.trim(),
+      "firstName": _firstNameTEController.text.trim(),
+      "lastName": _lastNameTEController.text.trim(),
+      "mobile": _mobileTEController.text.trim(),
+      "password": _passwordTEController.text,
+    };
+
+    ///Calling Api
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: Urls.registrationUrl,
+      body: requestBody,
+    );
+
+    _signUpInProgress = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      _clearTextFields();
+    } else {}
+  }
+
+  void _clearTextFields() {
+    _emailTEController.clear();
+    _firstNameTEController.clear();
+    _lastNameTEController.clear();
+    _mobileTEController.clear();
+    _passwordTEController.clear();
+  }
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _firstNameTEController.dispose();
+    _lastNameTEController.dispose();
+    _mobileTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
   }
 }
