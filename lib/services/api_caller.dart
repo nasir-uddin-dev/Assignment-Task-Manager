@@ -2,8 +2,45 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
- class ApiCaller {
+class ApiCaller {
   static final Logger _logger = Logger();
+
+  static Future<ApiResponse> getRequest({required String url}) async {
+    try {
+      Uri uri = Uri.parse(url);
+
+      _logRequest(url);
+
+      Response response = await get(uri);
+
+      _logResponse(url, response);
+
+      final int statusCode = response.statusCode;
+
+      if (statusCode == 200) {
+        final decodedData = jsonDecode(response.body);
+        return ApiResponse(
+          isSuccess: true,
+          responseCode: statusCode,
+          responseData: decodedData,
+        );
+      } else {
+        final decodedData = jsonDecode(response.body);
+        return ApiResponse(
+          isSuccess: false,
+          responseCode: statusCode,
+          responseData: decodedData['data'],
+        );
+      }
+    } on Exception catch (e) {
+      return ApiResponse(
+        isSuccess: false,
+        responseCode: -1,
+        responseData: null,
+        errorMessage: e.toString(),
+      );
+    }
+  }
 
   static Future<ApiResponse> postRequest({
     required String url,
