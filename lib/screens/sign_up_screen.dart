@@ -1,6 +1,9 @@
 import 'package:assignment_task_manager/services/api_caller.dart';
 import 'package:assignment_task_manager/utils/urls.dart';
 import 'package:assignment_task_manager/widgets/background_screen.dart';
+import 'package:assignment_task_manager/widgets/centered_progress_indicator.dart';
+import 'package:assignment_task_manager/widgets/snack_bar_message.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -29,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: SingleChildScrollView(
             child: Form(
               key: _formkey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -45,6 +49,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintText: 'Enter a email',
                       labelText: 'Email',
                     ),
+                    validator: (String? value) {
+                      String inputText = value ?? ' ';
+                      if (EmailValidator.validate(inputText) == false) {
+                        return 'Enter a valid email';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
@@ -54,6 +65,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintText: 'Enter a first name',
                       labelText: 'First Name',
                     ),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter a first name';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
@@ -63,6 +80,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintText: 'Enter a last name',
                       labelText: 'Last Name',
                     ),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter a last name';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
@@ -73,19 +96,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintText: 'Enter a phone number',
                       labelText: 'Phone',
                     ),
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return 'Enter a phone number';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     controller: _passwordTEController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Enter a password',
                       labelText: 'Password',
                     ),
+                    validator: (String? value) {
+                      if ((value?.length ?? 0) <= 6) {
+                        return 'Enter a password more than 6 letters';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 30),
-                  FilledButton(
-                    onPressed: () {},
-                    child: Icon(Icons.arrow_forward_ios_outlined, size: 24),
+                  Visibility(
+                    visible: _signUpInProgress == false,
+                    replacement: CenteredProgressIndicator(),
+                    child: FilledButton(
+                      onPressed: _onTapSignUpButton,
+                      child: Icon(Icons.arrow_forward_ios_outlined, size: 24),
+                    ),
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -108,6 +149,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  void _onTapSignUpButton() {
+    if (_formkey.currentState!.validate()) {
+      _signUp();
+    }
   }
 
   void _onTapSignInButton() {
@@ -138,6 +185,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (response.isSuccess) {
       _clearTextFields();
+      showSnackBarMessage(context, "Registration Successful! Please Login");
+    } else {
+      showSnackBarMessage(context, response.errorMessage!);
     }
   }
 
